@@ -1,0 +1,88 @@
+Edge
+
+/ # ping -c 20 10.0.30.1
+PING 10.0.30.1 (10.0.30.1): 56 data bytes
+64 bytes from 10.0.30.1: seq=0 ttl=255 time=9.985 ms
+64 bytes from 10.0.30.1: seq=1 ttl=255 time=15.015 ms
+64 bytes from 10.0.30.1: seq=2 ttl=255 time=16.480 ms
+64 bytes from 10.0.30.1: seq=3 ttl=255 time=5.724 ms
+64 bytes from 10.0.30.1: seq=4 ttl=255 time=5.212 ms
+64 bytes from 10.0.30.1: seq=5 ttl=255 time=7.400 ms
+64 bytes from 10.0.30.1: seq=6 ttl=255 time=10.151 ms
+64 bytes from 10.0.30.1: seq=7 ttl=255 time=17.776 ms
+64 bytes from 10.0.30.1: seq=8 ttl=255 time=9.178 ms
+64 bytes from 10.0.30.1: seq=9 ttl=255 time=13.022 ms
+64 bytes from 10.0.30.1: seq=10 ttl=255 time=18.994 ms
+64 bytes from 10.0.30.1: seq=11 ttl=255 time=8.488 ms
+64 bytes from 10.0.30.1: seq=12 ttl=255 time=10.588 ms
+64 bytes from 10.0.30.1: seq=13 ttl=255 time=14.959 ms
+64 bytes from 10.0.30.1: seq=14 ttl=255 time=3.250 ms
+64 bytes from 10.0.30.1: seq=15 ttl=255 time=6.597 ms
+64 bytes from 10.0.30.1: seq=16 ttl=255 time=12.781 ms
+64 bytes from 10.0.30.1: seq=17 ttl=255 time=14.806 ms
+64 bytes from 10.0.30.1: seq=18 ttl=255 time=16.903 ms
+64 bytes from 10.0.30.1: seq=19 ttl=255 time=3.296 ms
+
+--- 10.0.30.1 ping statistics ---
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 3.250/11.030/18.994 ms
+
+
+vlan 10 a gatewat
+/ # ping -c 20 10.0.10.1
+PING 10.0.10.1 (10.0.10.1): 56 data bytes
+64 bytes from 10.0.10.1: seq=0 ttl=255 time=8.644 ms
+64 bytes from 10.0.10.1: seq=1 ttl=255 time=12.499 ms
+64 bytes from 10.0.10.1: seq=2 ttl=255 time=17.393 ms
+64 bytes from 10.0.10.1: seq=3 ttl=255 time=5.528 ms
+64 bytes from 10.0.10.1: seq=4 ttl=255 time=11.769 ms
+64 bytes from 10.0.10.1: seq=5 ttl=255 time=12.772 ms
+64 bytes from 10.0.10.1: seq=6 ttl=255 time=14.006 ms
+64 bytes from 10.0.10.1: seq=7 ttl=255 time=17.888 ms
+64 bytes from 10.0.10.1: seq=8 ttl=255 time=5.272 ms
+64 bytes from 10.0.10.1: seq=9 ttl=255 time=6.989 ms
+64 bytes from 10.0.10.1: seq=10 ttl=255 time=11.933 ms
+64 bytes from 10.0.10.1: seq=11 ttl=255 time=17.204 ms
+64 bytes from 10.0.10.1: seq=12 ttl=255 time=3.246 ms
+64 bytes from 10.0.10.1: seq=13 ttl=255 time=9.871 ms
+64 bytes from 10.0.10.1: seq=14 ttl=255 time=15.541 ms
+64 bytes from 10.0.10.1: seq=15 ttl=255 time=4.066 ms
+64 bytes from 10.0.10.1: seq=16 ttl=255 time=9.515 ms
+64 bytes from 10.0.10.1: seq=17 ttl=255 time=15.257 ms
+64 bytes from 10.0.10.1: seq=18 ttl=255 time=15.759 ms
+64 bytes from 10.0.10.1: seq=19 ttl=255 time=3.191 ms
+
+--- 10.0.10.1 ping statistics ---
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 3.191/10.917/17.888 ms
+
+
+vlan 10 a Edge
+
+/ # ping -c 20 10.0.30.5
+PING 10.0.30.5 (10.0.30.5): 56 data bytes
+64 bytes from 10.0.30.5: seq=0 ttl=63 time=33.642 ms
+64 bytes from 10.0.30.5: seq=1 ttl=63 time=23.004 ms
+64 bytes from 10.0.30.5: seq=2 ttl=63 time=26.663 ms
+64 bytes from 10.0.30.5: seq=3 ttl=63 time=27.830 ms
+64 bytes from 10.0.30.5: seq=4 ttl=63 time=18.942 ms
+64 bytes from 10.0.30.5: seq=5 ttl=63 time=22.485 ms
+64 bytes from 10.0.30.5: seq=6 ttl=63 time=25.372 ms
+64 bytes from 10.0.30.5: seq=7 ttl=63 time=28.751 ms
+64 bytes from 10.0.30.5: seq=8 ttl=63 time=30.613 ms
+64 bytes from 10.0.30.5: seq=9 ttl=63 time=32.460 ms
+64 bytes from 10.0.30.5: seq=10 ttl=63 time=21.621 ms
+64 bytes from 10.0.30.5: seq=11 ttl=63 time=24.127 ms
+64 bytes from 10.0.30.5: seq=12 ttl=63 time=22.482 ms
+64 bytes from 10.0.30.5: seq=13 ttl=63 time=28.591 ms
+64 bytes from 10.0.30.5: seq=14 ttl=63 time=33.264 ms
+64 bytes from 10.0.30.5: seq=15 ttl=63 time=20.623 ms
+64 bytes from 10.0.30.5: seq=16 ttl=63 time=22.357 ms
+64 bytes from 10.0.30.5: seq=17 ttl=63 time=27.248 ms
+64 bytes from 10.0.30.5: seq=18 ttl=63 time=31.910 ms
+64 bytes from 10.0.30.5: seq=19 ttl=63 time=34.586 ms
+
+--- 10.0.30.5 ping statistics ---
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 18.942/26.828/34.586 ms
+
