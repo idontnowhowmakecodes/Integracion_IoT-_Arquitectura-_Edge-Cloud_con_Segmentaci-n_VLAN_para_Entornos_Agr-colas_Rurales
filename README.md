@@ -1,7 +1,7 @@
 Canva: https://www.canva.com/design/DAHMHQeCT2g/jDk2np1wXHK3mXcjj1Wg9A/edit
 
 
-# Smart-Agri-Edge: Arquitectura de Red IoT con Computación en el Borde
+# Diseño, Simulación e Implementación de una Red de Computadoras Integrando: IoT, Arquitectura Edge-Cloud con Segmentación VLAN para Entornos Agrícolas Rurales 
 
 ## Descripción del Proyecto
 Este proyecto propone y simula una arquitectura de red convergente para la agricultura de precisión, diseñada para superar las limitaciones de conectividad en entornos rurales. La solución implementa un ecosistema distribuido que integra **IoT (Internet of Things)**, **Edge Computing** y **Microsegmentación (VLAN)** para garantizar el control determinista de cultivos y la reducción crítica de la latencia en la toma de decisiones.
