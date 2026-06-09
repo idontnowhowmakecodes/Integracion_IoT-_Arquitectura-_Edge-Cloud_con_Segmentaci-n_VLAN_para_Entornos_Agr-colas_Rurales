@@ -1,0 +1,92 @@
+! CONFIGURACION PARA ROUTER PRINCIPAL (Actuando como Uplink/Teltonika)
+!
+enable
+configure terminal
+!
+hostname RouterGateway
+!
+! Encender la interfaz principal que conecta al Switch (Puertos ether15/16)
+interface FastEthernet0/0
+ no ip address
+ no shutdown
+ description ENLACE_TRONCAL_HACIA_SWITCH_CORE
+ exit
+!
+! Crear subinterfaz para VLAN 10 (IoT - ESP32) - Red /23
+interface FastEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 10.0.10.1 255.255.254.0
+ ip nat inside
+ description RED_IOT_SENSORES_VLAN10
+ exit
+!
+! Crear subinterfaz para VLAN 20 (CCTV_Agricola) - Red /24
+interface FastEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 10.0.20.1 255.255.255.0
+ ip nat inside
+ description RED_CCTV_VLAN20
+ exit
+!
+! Crear subinterfaz para VLAN 30 (Edge_Mgmt) - Red /24
+interface FastEthernet0/0.30
+ encapsulation dot1Q 30
+ ip address 10.0.30.1 255.255.255.0
+ ip nat inside
+ description RED_EDGE_MGMT_VLAN30
+ exit
+!
+! Crear subinterfaz para VLAN 99 (Cloud_UpLink) - Red /30 P2P
+interface FastEthernet0/0.99
+ encapsulation dot1Q 99
+ ip address 10.0.99.1 255.255.255.252
+ description ENLACE_P2P_VLAN99
+ exit
+!
+! DHCP para IoT (Excluyendo primera IP)
+ip dhcp excluded-address 10.0.10.1
+ip dhcp pool VLAN10_IOT
+ network 10.0.10.0 255.255.254.0
+ default-router 10.0.10.1
+ dns-server 8.8.8.8 1.1.1.1
+!
+! DHCP para CCTV (Excluyendo primera IP)
+ip dhcp excluded-address 10.0.20.1
+ip dhcp pool VLAN20_CCTV
+ network 10.0.20.0 255.255.255.0
+ default-router 10.0.20.1
+ dns-server 8.8.8.8 1.1.1.1
+!
+! DHCP para Edge (Aunque la Raspberry Pi usa estatica 10.0.30.5, dejamos el pool disponible)
+ip dhcp excluded-address 10.0.30.1 10.0.30.10
+ip dhcp pool VLAN30_EDGE
+ network 10.0.30.0 255.255.255.0
+ default-router 10.0.30.1
+ dns-server 8.8.8.8 1.1.1.1
+!
+! Suponiendo salida a Internet por la Fa1/0
+interface FastEthernet1/0
+ ip address dhcp
+ ip nat outside
+ no shutdown
+ exit
+!
+! Regla de NAT PAT general (Aplica a todas las subredes 10.x.x.x)
+access-list 1 permit 10.0.0.0 0.255.255.255
+ip nat inside source list 1 interface FastEthernet1/0 overload
+!
+! Solucionar fragmentacion DNS por NAT
+no ip nat service alg udp dns
+no ip nat service alg tcp dns
+!
+! ACL de Seguridad: Aislar CCTV de la red IoT
+! Denegamos el trafico de 10.0.10.0/23 (0.0.1.255) hacia 10.0.20.0/24
+access-list 100 deny ip 10.0.10.0 0.0.1.255 10.0.20.0 0.0.0.255
+access-list 100 permit ip any any
+!
+interface FastEthernet0/0.10
+ ip access-group 100 in
+ exit
+!
+end
+write memory
