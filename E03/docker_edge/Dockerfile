@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     nano \
     iperf3 \
+    python3 \
+    python3-paho-mqtt \
     && rm -rf /var/lib/apt/lists/*
 
 # Configuración básica para permitir conexiones anónimas locales en Mosquitto
@@ -22,3 +24,4 @@ EXPOSE 1883
 
 # Comando por defecto para mantener el contenedor vivo y permitir la consola interactiva en GNS3
 CMD ["tail", "-f", "/dev/null"]
+
