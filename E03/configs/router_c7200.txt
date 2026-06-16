@@ -1,11 +1,12 @@
-! CONFIGURACION PARA ROUTER PRINCIPAL (Actuando como Uplink/Teltonika)
-!
+! ==========================================================================
+! CONFIGURACION PARA ROUTER PRINCIPAL CISCO (Actuando como Uplink/Teltonika)
+! ==========================================================================
 enable
 configure terminal
 !
 hostname RouterGateway
 !
-! Encender la interfaz principal que conecta al Switch (Puertos ether15/16)
+! Encender la interfaz principal que conecta al Switch Core (Puerto ether15)
 interface FastEthernet0/0
  no ip address
  no shutdown
@@ -36,13 +37,16 @@ interface FastEthernet0/0.30
  description RED_EDGE_MGMT_VLAN30
  exit
 !
-! Crear subinterfaz para VLAN 99 (Cloud_UpLink) - Red /30 P2P
+! Crear subinterfaz para VLAN 99 (Cloud_UpLink P2P) - Red /30
 interface FastEthernet0/0.99
  encapsulation dot1Q 99
  ip address 10.0.99.1 255.255.255.252
  description ENLACE_P2P_VLAN99
  exit
 !
+! --------------------------------------------------------------------------
+! CONFIGURACION DE SERVIDORES DHCP
+! --------------------------------------------------------------------------
 ! DHCP para IoT (Excluyendo primera IP)
 ip dhcp excluded-address 10.0.10.1
 ip dhcp pool VLAN10_IOT
@@ -57,14 +61,17 @@ ip dhcp pool VLAN20_CCTV
  default-router 10.0.20.1
  dns-server 8.8.8.8 1.1.1.1
 !
-! DHCP para Edge (Aunque la Raspberry Pi usa estatica 10.0.30.5, dejamos el pool disponible)
+! DHCP para Edge (Aunque la Raspberry Pi usa estatica 10.0.30.5, dejamos pool)
 ip dhcp excluded-address 10.0.30.1 10.0.30.10
 ip dhcp pool VLAN30_EDGE
  network 10.0.30.0 255.255.255.0
  default-router 10.0.30.1
  dns-server 8.8.8.8 1.1.1.1
 !
-! Suponiendo salida a Internet por la Fa1/0
+! --------------------------------------------------------------------------
+! CONFIGURACION NAT Y CONEXION WAN
+! --------------------------------------------------------------------------
+! Salida a Internet por la Fa1/0 (Por DHCP desde la nube/GNS3 VM)
 interface FastEthernet1/0
  ip address dhcp
  ip nat outside
@@ -79,8 +86,9 @@ ip nat inside source list 1 interface FastEthernet1/0 overload
 no ip nat service alg udp dns
 no ip nat service alg tcp dns
 !
-! ACL de Seguridad: Aislar CCTV de la red IoT
-! Denegamos el trafico de 10.0.10.0/23 (0.0.1.255) hacia 10.0.20.0/24
+! --------------------------------------------------------------------------
+! SEGURIDAD: Aislar red de CCTV de la red de IoT
+! --------------------------------------------------------------------------
 access-list 100 deny ip 10.0.10.0 0.0.1.255 10.0.20.0 0.0.0.255
 access-list 100 permit ip any any
 !
