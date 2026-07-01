@@ -1,4 +1,4 @@
-Canva: https://canva.link/q87jq8xrtzpqt2w
+Canva: [https://canva.link/q87jq8xrtzpqt2w](https://canva.link/0amamo7nqnjhizh)
 
 # Diseño, Simulación e Implementación de una Red de Computadoras Integrando: IoT, Arquitectura Edge-Cloud con Segmentación VLAN para Entornos Agrícolas Rurales 
 
